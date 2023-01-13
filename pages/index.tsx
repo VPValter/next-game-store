@@ -15,8 +15,26 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <nav className="navbar bg-lgray"></nav>
+      <nav className="navbar bg-lgray">
+        <div className="home-link">
+          <a href="#">H</a>
+        </div>
+        <form className="search-form">
+          <input type="search" name="search" id="" placeholder='Search' />
+          <button type="submit">S</button>
+        </form>
+        <ul>
+          <li>
+            <a href="#">Link 1</a>
+          </li>
+          <li>
+            <a href="#">Link 2</a>
+          </li>
+        </ul>
+      </nav>
+
       <div className="cart-container"></div>
+
       <section className='container'>
         <div className="games-list">
           <div className="game-item">
