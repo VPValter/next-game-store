@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type PostsComments {
+  id     String   @map("_id") @db.ObjectId
+  avatar String
+  date   DateTime @db.Date
+  name   String
+  text   String
+  user   String   @db.ObjectId
+}
+
+type PostsLikes {
+  id   String @map("_id") @db.ObjectId
+  user String @db.ObjectId
+}
+
+type ProfilesSocial {
+  facebook String?
+  twitter  String?
+}
+
+model devs {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  v            Int      @map("__v")
+  description  String
+  foundingDate DateTime @db.Date
+  hq           String
+  logo         String
+  name         String
+  web          String
+}
+
+model games {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  v           Int      @map("__v")
+  date        DateTime @db.Date
+  description String
+  developer   String   @db.ObjectId
+  posterImg   String
+  price       Int
+  tags        String[]
+  title       String
+}
+
+model posts {
+  id       String          @id @default(auto()) @map("_id") @db.ObjectId
+  v        Int             @map("__v")
+  avatar   String
+  comments PostsComments[]
+  date     DateTime        @db.Date
+  likes    PostsLikes[]
+  name     String
+  text     String
+  user     String          @db.ObjectId
+}
+
+model profiles {
+  id        String          @id @default(auto()) @map("_id") @db.ObjectId
+  v         Int             @map("__v")
+  bio       String?
+  date      DateTime        @db.Date
+  favGenres String[]
+  location  String?
+  social    ProfilesSocial?
+  user      String          @db.ObjectId
+}
+
+model users {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  v          Int      @map("__v")
+  avatar     String
+  date       DateTime @db.Date
+  email      String   @unique(map: "email_1")
+  gamesOwned String[]
+  name       String
+  password   String
+}
