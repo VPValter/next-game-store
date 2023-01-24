@@ -1,23 +1,23 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import { fetchGames } from '../lib/api-calls';
+import prisma from '../lib/prisma';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 interface Game {
-  _id: string;
+  id: string;
   title: string;
   price: number;
   posterImg: string;
 }
 
 export async function getServerSideProps() {
-  const games: Array<Game> = await fetchGames();
+  const games: Array<Game> = await prisma.games.findMany();
   return {
     props: {
-      games,
+      games: JSON.parse(JSON.stringify(games)),
     },
   };
 }
@@ -38,11 +38,15 @@ export default function Home({ games }: Props) {
 
       <nav className='navbar bg-lgray'>
         <div className='home-link'>
-          <Link href='/'><FontAwesomeIcon icon={faHome} /></Link>
+          <Link href='/'>
+            <FontAwesomeIcon icon={faHome} />
+          </Link>
         </div>
         <form className='search-form'>
           <input type='search' name='search' id='' placeholder='Search' />
-          <button type='submit'><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+          <button type='submit'>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button>
         </form>
         <ul>
           <li>
@@ -61,8 +65,8 @@ export default function Home({ games }: Props) {
           {games &&
             games.map((item) => {
               return (
-                <div className='game-item' key={item._id}>
-                  <Link href={`/games/${item._id}`}>
+                <div className='game-item' key={item.id}>
+                  <Link href={`/games/${item.id}`}>
                     <Image
                       src={item.posterImg}
                       alt={item.title}
