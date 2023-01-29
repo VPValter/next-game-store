@@ -1,20 +1,14 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import prisma from '../lib/prisma';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-
-interface Game {
-  id: string;
-  title: string;
-  price: number;
-  posterImg: string;
-}
+import GameItem from '../components/GameItem';
+import { GameListItem } from '../types';
 
 export async function getServerSideProps() {
-  const games: Array<Game> = await prisma.games.findMany();
+  const games: Array<GameListItem> = await prisma.games.findMany();
   return {
     props: {
       games: JSON.parse(JSON.stringify(games)),
@@ -23,7 +17,7 @@ export async function getServerSideProps() {
 }
 
 interface Props {
-  games: Game[];
+  games: GameListItem[];
 }
 
 export default function Home({ games }: Props) {
@@ -64,20 +58,7 @@ export default function Home({ games }: Props) {
         <div className='games-list'>
           {games &&
             games.map((item) => {
-              return (
-                <div className='game-item' key={item.id}>
-                  <Link href={`/games/${item.id}`}>
-                    <Image
-                      src={item.posterImg}
-                      alt={item.title}
-                      width={220}
-                      height={280}
-                    />
-                    <h3>{item.title}</h3>
-                    <span className='list-price'>{item.price}</span>
-                  </Link>
-                </div>
-              );
+              return <GameItem game={item} key={item.id} />;
             })}
         </div>
       </section>
