@@ -9,11 +9,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '**.epicgames.com',
+        hostname: 'upload.wikimedia.org',
       },
       {
         protocol: 'https',
-        hostname: '**.**.**',
+        hostname: '**.epicgames.com',
       },
     ],
   },

@@ -5,16 +5,10 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import GameItem from '../components/GameItem';
-
-interface Game {
-  id: string;
-  title: string;
-  price: number;
-  posterImg: string;
-}
+import { GameListItem } from '../types';
 
 export async function getServerSideProps() {
-  const games: Array<Game> = await prisma.games.findMany();
+  const games: Array<GameListItem> = await prisma.games.findMany();
   return {
     props: {
       games: JSON.parse(JSON.stringify(games)),
@@ -23,7 +17,7 @@ export async function getServerSideProps() {
 }
 
 interface Props {
-  games: Game[];
+  games: GameListItem[];
 }
 
 export default function Home({ games }: Props) {

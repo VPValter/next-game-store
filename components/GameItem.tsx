@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { GameListItem } from '../types';
 
-const GameItem = ({ game }) => {
+interface Props {
+  game: GameListItem;
+}
+
+const GameItem = ({ game }: Props) => {
   return (
     <div className='game-item' key={game.id}>
       <Link href={`/games/${game.id}`}>
