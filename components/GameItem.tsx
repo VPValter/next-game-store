@@ -12,7 +12,11 @@ const GameItem = ({ game }: Props) => {
       <Link href={`/games/${game.id}`}>
         <Image src={game.posterImg} alt={game.title} width={220} height={280} />
         <h3>{game.title}</h3>
-        <span className='list-price'>{game.price}</span>
+        {game.price > 0 ? (
+          <span className='list-price'>{game.price}</span>
+        ) : (
+          <span className='free-price'>FREE</span>
+        )}
       </Link>
     </div>
   );
