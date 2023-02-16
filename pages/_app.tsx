@@ -11,3 +11,4 @@ export default function App({ Component, pageProps }: AppProps) {
 }
 
 // TODO: figure out Layout with Typescript
+// https://nextjs.org/learn/excel/typescript

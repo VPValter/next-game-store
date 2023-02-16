@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-export default function Layout({ children }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Head>
