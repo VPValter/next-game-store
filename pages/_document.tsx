@@ -11,5 +11,3 @@ export default function Document() {
     </Html>
   )
 }
-
-// TODO: figure out Layout with Typescript

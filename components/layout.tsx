@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import Search from './Search';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -19,12 +20,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <FontAwesomeIcon icon={faHome} />
           </Link>
         </div>
-        <form className='search-form'>
-          <input type='search' name='search' id='' placeholder='Search' />
-          <button type='submit'>
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </button>
-        </form>
+
+        <Search />
+
         <ul>
           <li>
             <Link href='/register'>Register</Link>
