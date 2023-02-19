@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 // import Link from 'next/link';
@@ -6,26 +6,31 @@ import Layout from '../../components/layout';
 import { GameDetails } from '../../types';
 import prisma from '../../lib/prisma';
 
-// TODO: Params type??
-export async function getServerSideProps({ params }) {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const game: GameDetails = await prisma.games.findUniqueOrThrow({
     where: {
-      id: params.id,
+      id: params?.id as string,
     },
   });
+
+  if (!game) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       game: JSON.parse(JSON.stringify(game)),
     },
   };
-}
+};
 
 interface Props {
   game: GameDetails;
 }
 
 const Game: NextPage<Props> = ({ game }) => {
-  // console.log(game);
   return (
     game && (
       <Layout>
@@ -63,7 +68,6 @@ const Game: NextPage<Props> = ({ game }) => {
               ) : (
                 <p className='price free'>FREE</p>
               )}
-
             </div>
           </div>
         </section>
