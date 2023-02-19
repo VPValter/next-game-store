@@ -2,6 +2,7 @@ import prisma from '../lib/prisma';
 import GameItem from '../components/GameItem';
 import Layout from '../components/layout';
 import { GameListItem } from '../types';
+import { NextPage } from 'next';
 
 export async function getServerSideProps() {
   const games: Array<GameListItem> = await prisma.games.findMany();
@@ -16,7 +17,7 @@ interface Props {
   games: GameListItem[];
 }
 
-export default function Home({ games }: Props) {
+const Home: NextPage<Props> = ({ games }) => {
   return (
     <Layout>
 
@@ -33,3 +34,5 @@ export default function Home({ games }: Props) {
     </Layout>
   );
 }
+
+export default Home;
