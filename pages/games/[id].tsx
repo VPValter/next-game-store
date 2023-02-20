@@ -7,7 +7,7 @@ import { GameDetails } from '../../types';
 import prisma from '../../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const game: GameDetails = await prisma.games.findUniqueOrThrow({
+  const game: GameDetails | null = await prisma.games.findUnique({
     where: {
       id: params?.id as string,
     },
