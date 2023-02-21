@@ -50,13 +50,11 @@ const Game: NextPage<Props> = ({ game }) => {
               <h1>{game.title}</h1>
 
               <div className='tags'>
-                {game.tags.map((item, i) => {
-                  return (
-                    <Link href={`/games/tags/${item}`} key={i}>
-                      {item}
-                    </Link>
-                  );
-                })}
+                {game.tags.map((item, i) => (
+                  <Link href={`/games/tags/${item}`} key={i}>
+                    {item}
+                  </Link>
+                ))}
               </div>
 
               {game.description.split(/(?:<br>|\\n)+/).map((item, i) => (
