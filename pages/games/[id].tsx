@@ -1,7 +1,7 @@
 import { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-// import Link from 'next/link';
+import Link from 'next/link';
 import Layout from '../../components/layout';
 import { GameDetails } from '../../types';
 import prisma from '../../lib/prisma';
@@ -49,13 +49,15 @@ const Game: NextPage<Props> = ({ game }) => {
             <div className='details-right'>
               <h1>{game.title}</h1>
 
-              {/* <div className='tags'>
+              <div className='tags'>
                 {game.tags.map((item, i) => {
-                  <Link href={`/games/tags/${item}`} key={i}>
-                    {item}
-                  </Link>
+                  return (
+                    <Link href={`/games/tags/${item}`} key={i}>
+                      {item}
+                    </Link>
+                  );
                 })}
-              </div> */}
+              </div>
 
               {game.description.split(/(?:<br>|\\n)+/).map((item, i) => (
                 <p key={i}>{item}</p>
